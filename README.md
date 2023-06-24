@@ -11,3 +11,7 @@ The Landscape Firm MVP Application is a web-based tool designed to streamline pr
 - Navigate through the application using the nav bar to access different sections.
 - Utilize the list and details to find specific information of the Landscape designs, sites, and plant materials.
 - Add, update, or delete project details as an administrator.
+
+##Demo of Application
+
+-
