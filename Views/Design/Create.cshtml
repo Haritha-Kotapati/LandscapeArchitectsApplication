@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create a Design data</h2>
+<form action="/Design/Create" method="POST">
+    <div>
+        <label>Design ID Number:</label> <input type="text" name="DesignID" />
+    </div>
+    <div>
+        <label>Lead Architect:</label> <input type="text" name="LeadArhitect" />
+    </div>
+    <div>
+        <label>Date Created:</label> <input type="text" name="DateCreated" />
+    </div>
+    <input type="submit" value="Add A Design" />
+</form>
+

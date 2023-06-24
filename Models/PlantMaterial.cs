@@ -18,4 +18,11 @@ namespace LandscapeArchitectsApplication.Models
         public ICollection<Site> Sites { get; set; }
 
     }
+
+    public class PlantMaterialDto
+    {
+        public int Plant_Id { get; set; }
+        public string Plant_Name { get; set; }
+        public string Plant_Type { get; set; }
+    }
 }

@@ -13,6 +13,15 @@ namespace LandscapeArchitectsApplication.Models
         public string LeadArhitect { get; set; }
         public DateTime DateCreated { get; set; } 
 
+
         
+    }
+
+    public class LandscapeDesignDto
+    {
+        public int DesignID { get; set; }
+        public string LeadArhitect { get; set; }
+        public DateTime DateCreated { get; set; }
+
     }
 }

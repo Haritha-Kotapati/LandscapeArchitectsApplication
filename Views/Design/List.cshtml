@@ -1,0 +1,16 @@
+﻿@model IEnumerable<LandscapeArchitectsApplication.Models.LandscapeDesignDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+<a href="Create">Create New Design</a>
+
+@foreach (var design in Model)
+{
+
+    <h2>Architect: @design.LeadArhitect</h2>
+    <p>Date Created: @design.DateCreated</p>
+    <p><a href="/Design/Details/@design.DesignID">Design ID : @design.DesignID</a></p>
+}
+

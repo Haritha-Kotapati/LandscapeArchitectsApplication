@@ -1,0 +1,14 @@
+﻿@model LandscapeArchitectsApplication.Models.ViewModels.DetailsSite
+@{
+    ViewBag.Title = "Details";
+}
+
+<a href="/Site/List">Go back to list</a>
+<br />
+<a href="/Site/Edit/@Model.SelectedSite.SiteID">Edit</a>
+<h2>Details</h2>
+
+<h4>@Model.SelectedSite.Address</h4>
+<h2>The architect of the site is @Model.SelectedSite.LeadArhitect</h2>
+<p>Client Name: @Model.SelectedSite.ClientName</p>
+

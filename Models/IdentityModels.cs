@@ -33,5 +33,7 @@ namespace LandscapeArchitectsApplication.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<LandscapeArchitectsApplication.Models.PlantMaterial> PlantMaterials { get; set; }
     }
 }

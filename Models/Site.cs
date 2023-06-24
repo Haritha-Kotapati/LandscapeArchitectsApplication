@@ -20,8 +20,18 @@ namespace LandscapeArchitectsApplication.Models
         public int DesignID { get; set; }
         public virtual LandscapeDesign LandscapeDesign {get; set; }
 
-        //a plant material canbe used in many sites
+        //a plant material can be used in many sites
         public ICollection<PlantMaterial> PlantMaterials { get; set; }
+
+    }
+
+    public class SiteDto
+    {
+        public int SiteID { get; set; }
+        public string ClientName { get; set; }
+        public string Address { get; set; }
+        public int DesignID { get; set; }
+        public string LeadArhitect { get; set; }
 
     }
 }

@@ -1,0 +1,37 @@
+﻿@model LandscapeArchitectsApplication.Models.ViewModels.UpdateSite
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<form action="/Site/Update/@Model.SelectedSite.SiteID" method="POST">
+    <div style="display:;">
+        @* Pass through the animal ID *@
+        <input type="text" name="SiteID" value="@Model.SelectedSite.SiteID" />
+    </div>
+    <div>
+        <label>Address: </label> <input type="text" name="Address" value="@Model.SelectedSite.Address" />
+    </div>
+    <div>
+        <label>Client Name: </label> <input type="text" name="ClientName" value="@Model.SelectedSite.ClientName" />
+    </div>
+    <div>
+        <label>Design ID</label>
+
+        <select name="DesignID">
+            @foreach(var designs in Model.LandscapeDesignOptions)
+            {
+                string selected = "";
+                if(designs.DesignID == Model.SelectedSite.DesignID)
+                {
+                    selected = "selected";
+                }
+                <option value="@designs.DesignID" @selected> @designs.LeadArhitect</option>
+            }
+
+        </select>
+    </div>
+    <div><input type="submit" value="Update Site"/>
+    </div>
+</form>
+

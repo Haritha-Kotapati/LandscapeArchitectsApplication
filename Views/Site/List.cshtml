@@ -1,0 +1,18 @@
+﻿@model IEnumerable<LandscapeArchitectsApplication.Models.SiteDto>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of Sites</h2>
+<a href="New">Create a new Site</a>
+
+@foreach (var site in Model)
+{
+    <h2><A href="/Site/Details/@site.SiteID">Location: @site.Address</A></h2>
+    <p>Client: @site.ClientName</p>
+    <p>Architect: @site.LeadArhitect</p>
+    <p>Desing ID: @site.DesignID</p>
+    <p>Site ID:@site.SiteID</p>
+
+}
