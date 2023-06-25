@@ -1,0 +1,15 @@
+﻿@model IEnumerable<LandscapeArchitectsApplication.Models.PlantMaterialDto>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of Plant Materials</h2>
+<a href="New">Create new Plant Material data</a>
+
+@foreach(var plant in Model)
+            {
+                <h3><a href="/PlantMaterial/Details/@plant.Plant_Id">Name of the Plant: @plant.Plant_Name</a></h3>
+                <p>Type 0f Plant: @plant.Plant_Type</p>
+                <p>Plant Id: @plant.Plant_Id</p>
+            }

@@ -1,0 +1,41 @@
+﻿@model LandscapeArchitectsApplication.Models.ViewModels.UpdatePlantMaterial
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form action="/PlantMaterial/Update/@Model.SelectedPlantMaterial.Plant_Id" method="POST">
+    <div style="display:;">
+        @* Pass through the PlantMaterial ID*@
+        <input type="text" name="Plant_Id" value="@Model.SelectedPlantMaterial.Plant_Id" />
+    </div>
+    <div>
+        <label>Plant name: </label><input type="text" name="Plant_Name" value="@Model.SelectedPlantMaterial.Plant_Name" />
+    </div>
+    <div>
+        <label>Plant Type: </label><input type="text" name="Plant type" value="@Model.SelectedPlantMaterial.Plant_Type" />
+    </div>
+    <div>
+        <label>Plant ID</label>
+
+         <select name="Plant_Id">
+         @foreach (var sites in Model.SiteOptions)
+         {
+             string selected = "";
+             if (sites.SiteID == Model.SelectedPlantMaterial.Plant_Id)
+             {
+                 selected = "selected";
+             }
+             <option value="@sites.SiteID" @selected> @sites.Address</option>
+         }
+
+     </select>
+    </div>
+    <div>
+        <input type="submit" value="Update Site" />
+    </div>
+
+</form>
+

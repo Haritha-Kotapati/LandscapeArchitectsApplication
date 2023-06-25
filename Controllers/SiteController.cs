@@ -100,7 +100,7 @@ namespace LandscapeArchitectsApplication.Controllers
             SiteDto SelectedSite = response.Content.ReadAsAsync<SiteDto>().Result;
             ViewModels.SelectedSite = SelectedSite;
 
-            //also like to include all designs to choose from when updating this animal
+            //also like to include all designs to choose from when updating this site
             //the existing site information
             url = "LandscapeDesignsData/ListLandscapeDesigns/" + id;
             response = client.GetAsync(url).Result;
@@ -138,24 +138,37 @@ namespace LandscapeArchitectsApplication.Controllers
         }
 
         // GET: Site/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteConfirm(int id)
         {
-            return View();
+            string url = "SitesData/FindSite/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            SiteDto selectedSite = response.Content.ReadAsAsync<SiteDto>().Result;
+
+            return View(selectedSite);
         }
 
         // POST: Site/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string url = "SitesData/DeleteSite/"+id;
+            //string jsonpayload = jss.Serialize(site);
 
-                return RedirectToAction("Index");
-            }
-            catch
+           // HttpContent content = new StringContent(jsonpayload);
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
+
+
             }
         }
     }

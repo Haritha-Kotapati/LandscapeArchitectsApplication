@@ -1,0 +1,29 @@
+﻿@model IEnumerable<LandscapeArchitectsApplication.Models.SiteDto>
+
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+<form action="/PlantMaterial/Create" method="POST">
+    <div>
+        <label>Plant ID: <input type="text" name="Plant_Id" /></label>
+    </div>
+    <div>
+        <label>Plant Name: <input type="text" name="Plant_Name" /></label>
+    </div>
+    <div>
+        <label>Plant Type: <input type="text" name="Plant_Type" /></label>
+    </div>
+    <div>
+        <label>Site option </label>
+        <select name="SiteID">
+
+            @foreach (var site in Model)
+            {
+                <option value="@site.SiteID">@site.Address</option>
+            }
+        </select>
+    </div>
+    <input type="submit" value="Add a Plant" />
+</form>

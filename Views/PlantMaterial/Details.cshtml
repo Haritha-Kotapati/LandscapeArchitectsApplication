@@ -1,0 +1,16 @@
+﻿@model LandscapeArchitectsApplication.Models.ViewModels.DetailsPlantMaterial
+@{
+    ViewBag.Title = "Details";
+}
+
+<a href="/PlantMaterial/List">Go Back to List</a>
+<br />
+<a href="/PlantMaterial/Edit/@Model.SelectedPlantMaterial.Plant_Id">Update</a>
+<br />
+<a style="color:#ab2020;" href="/PlantMaterial/DeleteConfirm/@Model.SelectedPlantMaterial.Plant_Id">Delete</a>
+<h2>Details of the Plant</h2>
+
+<h3>Plant name: @Model.SelectedPlantMaterial.Plant_Name</h3>
+<p>Type of plant: @Model.SelectedPlantMaterial.Plant_Type</p>
+<p>Plant Id: @Model.SelectedPlantMaterial.Plant_Id</p>
+

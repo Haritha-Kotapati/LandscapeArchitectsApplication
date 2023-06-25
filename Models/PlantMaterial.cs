@@ -24,5 +24,6 @@ namespace LandscapeArchitectsApplication.Models
         public int Plant_Id { get; set; }
         public string Plant_Name { get; set; }
         public string Plant_Type { get; set; }
+
     }
 }

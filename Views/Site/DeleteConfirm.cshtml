@@ -1,0 +1,13 @@
+﻿@model LandscapeArchitectsApplication.Models.SiteDto
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Are you sure want to delete this site?</h2>
+<a href="/Site/List">Cancel</a>
+<h2>Address: @Model.Address</h2>
+<div>Client: Mr.@Model.ClientName</div>
+<div>Assigned Architect : @Model.LeadArhitect</div>
+<form action="/Site/Delete/@Model.SiteID" method="POST">
+    <input type="submit" value="Confirm Delete" />
+</form>
