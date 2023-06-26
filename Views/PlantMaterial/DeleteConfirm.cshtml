@@ -1,7 +1,17 @@
-﻿
+﻿@model LandscapeArchitectsApplication.Models.PlantMaterialDto
 @{
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Are you ure want to Delete?</h2>
+<a href="/PlantMaterial/List">Cancel</a>
+<div>
+    Plant Name: @Model.Plant_Name 
+</div>
+<div>
+    Plant type: @Model.Plant_Type
+</div>
+<form action="/PlantMaterial/Delete/@Model.Plant_Id" method="POST">
+    <input type="submit" value="Confirm Delete" />
+</form>
 

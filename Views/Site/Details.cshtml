@@ -14,4 +14,30 @@
 <h4>@Model.SelectedSite.Address</h4>
 <h2>The architect of the site is @Model.SelectedSite.LeadArhitect</h2>
 <p>Client Name: @Model.SelectedSite.ClientName</p>
+<br />
+<div>
+    <h2>Associate Plant materials for this site @Model.SelectedSite.Address </h2>
+    
+    @foreach(var plant in Model.AvailablePlants)
+            {
+<a href="/PlantMaterials/List/@plant.Plant_Id">@plant.Plant_Name</a>
+            }
+    <div>
+        <h4>
+            Add a new plant material to the site
+        </h4>
+        <form method="POST" action="/Site/Associate/@Model.SelectedSite.SiteID">
+            <select name="Plant_Id">
+                @foreach(var plant in Model.AvailablePlants)
+            {
+                <option value="@plant.Plant_Id">@plant.Plant_Name</option>
+            }
+            </select>
+            <input type="submit" value="Associate Plant Material" />
+
+        </form>
+    </div>
+    
+</div>
+
 

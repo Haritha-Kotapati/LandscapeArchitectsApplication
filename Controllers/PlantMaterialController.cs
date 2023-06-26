@@ -136,26 +136,38 @@ namespace LandscapeArchitectsApplication.Controllers
             }
         }
 
-        // GET: PlantMaterial/Delete/5
-        public ActionResult Delete(int id)
+        // GET: PlantMaterial/DeleteConfirm/5
+        public ActionResult DeleteConfirm(int id)
         {
-            return View();
+            string url = "PlantMaterialsData/FindPlantMaterial/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            PlantMaterialDto selectedPlantMaterial = response.Content.ReadAsAsync<PlantMaterialDto>().Result;
+
+            return View(selectedPlantMaterial);
         }
 
         // POST: PlantMaterial/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string url = "PlantMaterialsData/DeletePlantMaterial/" + id;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
+
+
             }
         }
+
     }
-}
+    }

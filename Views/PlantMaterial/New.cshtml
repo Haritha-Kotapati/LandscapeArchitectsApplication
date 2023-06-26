@@ -15,15 +15,6 @@
     <div>
         <label>Plant Type: <input type="text" name="Plant_Type" /></label>
     </div>
-    <div>
-        <label>Site option </label>
-        <select name="SiteID">
-
-            @foreach (var site in Model)
-            {
-                <option value="@site.SiteID">@site.Address</option>
-            }
-        </select>
-    </div>
+    
     <input type="submit" value="Add a Plant" />
 </form>

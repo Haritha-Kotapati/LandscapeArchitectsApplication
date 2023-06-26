@@ -44,6 +44,38 @@ namespace LandscapeArchitectsApplication.Controllers
         }
 
         /// <summary>
+        /// Returns all plant materials in the system associated with a particular site.
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all plant materials in the database taking belonging in a particular site
+        /// </returns>
+        /// <param name="id">Site Primary Key</param>
+        /// <example>
+        /// GET: api/PlantMaterialsData/ListPlantMaterialsForSite/1
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(PlantMaterialDto))]
+        public IHttpActionResult ListPlantMaterialsForSite(int id)
+        {
+            List<PlantMaterial> PlantMaterials = db.PlantMaterials.Where(
+                p => p.Sites.Any(
+                    s => s.SiteID == id)
+                ).ToList();
+            List<PlantMaterialDto> PlantMaterialDtos = new List<PlantMaterialDto>();
+
+            PlantMaterials.ForEach(p => PlantMaterialDtos.Add(new PlantMaterialDto()
+            {
+                Plant_Id = p.Plant_Id,
+                Plant_Name = p.Plant_Name,
+                Plant_Type = p.Plant_Type
+            }));
+
+            return Ok(PlantMaterialDtos);
+        }
+
+
+        /// <summary>
         /// Returns all Plant materials in the system.
         /// </summary>
         /// <returns>
@@ -57,6 +89,8 @@ namespace LandscapeArchitectsApplication.Controllers
         /// GET: api/PlantMaterialsData/FindPlantMaterial/5
         /// </example>
         // 
+
+
         [ResponseType(typeof(PlantMaterial))]
         [HttpGet]
         public IHttpActionResult FindPlantMaterial(int id)

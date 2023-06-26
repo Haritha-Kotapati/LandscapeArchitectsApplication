@@ -17,22 +17,7 @@
     <div>
         <label>Plant Type: </label><input type="text" name="Plant type" value="@Model.SelectedPlantMaterial.Plant_Type" />
     </div>
-    <div>
-        <label>Plant ID</label>
-
-         <select name="Plant_Id">
-         @foreach (var sites in Model.SiteOptions)
-         {
-             string selected = "";
-             if (sites.SiteID == Model.SelectedPlantMaterial.Plant_Id)
-             {
-                 selected = "selected";
-             }
-             <option value="@sites.SiteID" @selected> @sites.Address</option>
-         }
-
-     </select>
-    </div>
+    
     <div>
         <input type="submit" value="Update Site" />
     </div>

@@ -47,8 +47,47 @@ namespace LandscapeArchitectsApplication.Controllers
             SiteDto SelectedSite = response.Content.ReadAsAsync<SiteDto>().Result;
 
             ViewModel.SelectedSite = SelectedSite;
+
+            //Show associated plant materials on a site
+            url = "PlantMaterialsData/ListPlantMaterialsForSite/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<PlantMaterialDto> AvailablePlants = response.Content.ReadAsAsync<IEnumerable<PlantMaterialDto>>().Result;
+            
+            ViewModel.AvailablePlants = AvailablePlants;
+
             return View(ViewModel);
         }
+
+        //POST: Site/Associate/{SiteID}
+        [HttpPost]
+        public ActionResult Associate(int id, int Plant_Id)
+        {
+            Debug.WriteLine("Attempting to associate site :" + id + " with plant material " + Plant_Id);
+
+            //call our api to associate site with plant material
+            string url = "SiteData/AssociateSiteWithPlant/" + id + "/" + Plant_Id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            return RedirectToAction("Details/" + id);
+        }
+
+        //Get: Site/UnAssociate/{id}?Plant_Id={plantID}
+        [HttpGet]
+        public ActionResult UnAssociate(int id, int Plant_Id)
+        {
+            Debug.WriteLine("Attempting to unassociate site :" + id + " with plant material: " + Plant_Id);
+
+            //call our api to unassociate site with plant material
+            string url = "SiteData/UnAssociateSiteWithPlant/" + id + "/" + Plant_Id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            return RedirectToAction("Details/" + id);
+        }
+
 
         // GET: Site/New
         public ActionResult New()
@@ -137,7 +176,7 @@ namespace LandscapeArchitectsApplication.Controllers
             }
         }
 
-        // GET: Site/Delete/5
+        // GET: Site/DeleteConfirm/5
         public ActionResult DeleteConfirm(int id)
         {
             string url = "SitesData/FindSite/" + id;

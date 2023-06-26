@@ -47,6 +47,117 @@ namespace LandscapeArchitectsApplication.Controllers
         }
 
         /// <summary>
+        /// Gathers information about sites related to a particular plant material
+        /// </summary>
+        /// <returns>
+        /// HEADER:200(OK)
+        /// CONTENT: all sites in the database, including their associated plant material
+        /// </returns>
+        /// <param name="id">Plant_Id</param>
+        /// <example>
+        ///  GET: api/SitesData/ListSitesForPlant/2
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(SiteDto))]
+        public IHttpActionResult ListSitesForPlant(int id)
+        {
+            List<Site> Sites = db.Sites.Where(
+                s=>s.PlantMaterials.Any(
+                   p=>p.Plant_Id==id
+                   )).ToList();
+            List<SiteDto> siteDtos = new List<SiteDto>();
+
+            Sites.ForEach(a => siteDtos.Add(new SiteDto()
+            {
+                SiteID = a.SiteID,
+                Address = a.Address,
+                ClientName = a.ClientName,
+                DesignID = a.LandscapeDesign.DesignID,
+                LeadArhitect = a.LandscapeDesign.LeadArhitect
+            }));
+
+
+            return Ok(siteDtos);
+        }
+
+        /// <summary>
+        /// Associates a particular plant material with a particular site
+        /// </summary>
+        /// <param name="siteid">The site ID primary key</param>
+        /// <param name="plantid">The plant ID primary key</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST api/SiteData/AssociateSiteWithPlant/9/1
+        /// </example>
+        [HttpPost]
+        [Route("api/SiteData/AssociateSiteWithPlant/{siteid}/{plantid}")]
+        public IHttpActionResult AssociateSiteWithPlant(int siteid, int plantid)
+        {
+
+            Site SelectedSite = db.Sites.Include(a => a.PlantMaterials).Where(a => a.SiteID == siteid).FirstOrDefault();
+            PlantMaterial SelectedPlantMaterial = db.PlantMaterials.Find(plantid);
+
+            if (SelectedSite == null || SelectedPlantMaterial == null)
+            {
+                return NotFound();
+            }
+
+            Debug.WriteLine("input site id is: " + siteid);
+            Debug.WriteLine("selected site address is: " + SelectedSite.Address);
+            Debug.WriteLine("input plant id is: " + plantid);
+            Debug.WriteLine("selected plant name is: " + SelectedPlantMaterial.Plant_Name);
+
+
+            SelectedSite.PlantMaterials.Add(SelectedPlantMaterial);
+            db.SaveChanges();
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Associates a particular plant material with a particular site
+        /// </summary>
+        /// <param name="siteid">The site ID primary key</param>
+        /// <param name="plantid">The plant ID primary key</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST api/SiteData/AssociateSiteWithPlant/9/1
+        /// </example>
+        [HttpPost]
+        [Route("api/SiteData/UnAssociateSiteWithPlant/{siteid}/{plantid}")]
+        public IHttpActionResult UnAssociateSiteWithPlant(int siteid, int plantid)
+        {
+
+            Site SelectedSite = db.Sites.Include(a => a.PlantMaterials).Where(a => a.SiteID == siteid).FirstOrDefault();
+            PlantMaterial SelectedPlantMaterial = db.PlantMaterials.Find(plantid);
+
+            if (SelectedSite == null || SelectedPlantMaterial == null)
+            {
+                return NotFound();
+            }
+
+            Debug.WriteLine("input site id is: " + siteid);
+            Debug.WriteLine("selected site address is: " + SelectedSite.Address);
+            Debug.WriteLine("input plant id is: " + plantid);
+            Debug.WriteLine("selected keeper name is: " + SelectedPlantMaterial.Plant_Name);
+
+
+            SelectedSite.PlantMaterials.Remove(SelectedPlantMaterial);
+            db.SaveChanges();
+
+            return Ok();
+        }
+
+
+        /// <summary>
         /// Returns all sites in the system.
         /// </summary>
         /// <returns>
@@ -59,7 +170,7 @@ namespace LandscapeArchitectsApplication.Controllers
         /// <example>
         /// GET: api/SitesData/FindSite/6
         /// </example>
-        
+
         [ResponseType(typeof(Site))]
         [HttpGet]
         public IHttpActionResult FindSite(int id)
